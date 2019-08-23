@@ -1,0 +1,69 @@
+XCOMM $XConsortium: Imakefile /main/3 1996/10/25 11:32:44 kaleb $
+
+
+
+
+
+XCOMM $XFree86: xc/programs/Xserver/hw/xfree68/fbdev/Imakefile,v 3.3.2.3 1999/06/02 07:50:09 hohndel Exp $
+#include <Server.tmpl>
+
+
+SRCS = fbdev.c
+OBJS = fbdev.o
+
+#if XF68FBDevServer
+#if XF68FBDevIPLAN2p2
+FB_DEFINES:= $(FB_DEFINES) -DCONFIG_IPLAN2p2
+#endif
+#if XF68FBDevIPLAN2p4
+FB_DEFINES:= $(FB_DEFINES) -DCONFIG_IPLAN2p4
+#endif
+#if XF68FBDevIPLAN2p8
+FB_DEFINES:= $(FB_DEFINES) -DCONFIG_IPLAN2p8
+#endif
+#if XF68FBDevILBM
+FB_DEFINES:= $(FB_DEFINES) -DCONFIG_ILBM
+#endif
+#if XF68FBDevAFB
+FB_DEFINES:= $(FB_DEFINES) -DCONFIG_AFB
+#endif
+#endif
+#if XF68FBDevCFB8
+FB_DEFINES:= $(FB_DEFINES) -DCONFIG_CFB8
+#endif
+#if XF68FBDevCFB16
+FB_DEFINES:= $(FB_DEFINES) -DCONFIG_CFB16
+#endif
+#if XF68FBDevCFB24
+FB_DEFINES:= $(FB_DEFINES) -DCONFIG_CFB24
+#endif
+#if XF68FBDevCFB32
+FB_DEFINES:= $(FB_DEFINES) -DCONFIG_CFB32
+#endif
+#if XF68FBDev77C32
+FB_DEFINES:= $(FB_DEFINES) -DCONFIG_77C32
+#endif
+#if XF68FBDevMach64
+FB_DEFINES:= $(FB_DEFINES) -DCONFIG_MACH64
+#endif
+#if XF68FBDevPermedia2
+FB_DEFINES:= $(FB_DEFINES) -DCONFIG_PM2
+#endif
+#if XF68FBDevIMSTT
+FB_DEFINES:= $(FB_DEFINES) -DCONFIG_IMSTT
+#endif
+
+
+INCLUDES = -I../common -I../os-support -I$(XF86COMSRC) -I$(XF86OSSRC) -I. \
+	   -I$(SERVERSRC)/mfb -I$(SERVERSRC)/ilbm -I$(SERVERSRC)/afb \
+	   -I$(SERVERSRC)/mi -I$(SERVERSRC)/include -I$(XINCLUDESRC)
+
+NormalLibraryObjectRule()
+NormalLibraryTarget(fbdev,$(OBJS))
+LintLibraryTarget(fbdev,$(SRCS))
+NormalLintTarget($(SRCS))
+SpecialCObjectRule(fbdev,NullParameter,$(FB_DEFINES))
+
+InstallLinkKitLibrary(fbdev,$(LINKKITDIR)/drivers)
+
+DependTarget()
