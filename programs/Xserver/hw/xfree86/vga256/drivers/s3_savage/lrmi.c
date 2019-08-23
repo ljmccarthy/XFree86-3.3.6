@@ -11,10 +11,10 @@ This software has NO WARRANTY.  Use it at your own risk.
 */
 /* $XFree86: xc/programs/Xserver/hw/xfree86/vga256/drivers/s3_savage/lrmi.c,v 1.1.2.1 1999/07/30 11:21:25 hohndel Exp $ */
 
-#if defined(linux) && defined(__i386__)
-
 #include <stdio.h>
 #include <string.h>
+
+#if defined(linux) && defined(__i386__)
 #include <asm/vm86.h>
 
 #ifdef USE_LIBC_VM86
